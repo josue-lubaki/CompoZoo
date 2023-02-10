@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -14,10 +16,14 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "ca.josuelubaki.compozoo.CustomTestRunner"
         vectorDrawables {
             useSupportLibrary true
         }
+
+        Properties property = new Properties()
+        property.load(project.rootProject.file('local.properties').newDataInputStream())
+        buildConfigField "String", "BASE_URL", "\"${property['BASE_URL']}\""
     }
 
     buildTypes {
@@ -27,11 +33,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
     buildFeatures {
         compose true
@@ -51,6 +57,7 @@ dependencies {
     def retrofit_version = '2.9.0'
     def coroutines_version = '1.6.4'
     def coil_version = "2.2.2"
+    def hilt_version = "2.44.2"
 
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
@@ -64,8 +71,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     androidTestImplementation platform('androidx.compose:compose-bom:2022.10.00')
-    androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
 
     // coroutines lifecycle viewModel
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1'
@@ -86,4 +93,10 @@ dependencies {
 
     // Coil
     implementation "io.coil-kt:coil-compose:$coil_version"
+
+    // Hilt dependencies
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    implementation "androidx.hilt:hilt-navigation-compose:1.1.0-alpha01"
+
 }
