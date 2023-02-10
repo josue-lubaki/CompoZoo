@@ -32,7 +32,6 @@ class MainViewModel @Inject constructor(private val repo : AnimalRepo) : ViewMod
         viewModelScope.launch {
             _state.value = MainState.Loading
 
-
             try {
                 _state.value = MainState.Animals(repo.getAnimals())
             } catch (e: Exception) {

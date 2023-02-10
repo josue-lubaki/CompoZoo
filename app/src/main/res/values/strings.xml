@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CompoZoo</string>
+    <string name="animal_image">Animal Image</string>
 </resources>
