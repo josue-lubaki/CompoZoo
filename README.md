@@ -44,6 +44,7 @@ Run the app (Run > Run 'app')
 
 ## Architecture
 CompoZoo is based on the MVI architecture. The MVI architecture is a unidirectional data flow architecture that is based on the principles of reactive programming. It is a great fit for Android development because it is easy to understand, test, and maintain. It also provides a consistent and reliable user experience.
+
 <img src="https://i.imgur.com/53BsOd1.png" width="640" height="420" />
 
 ## License
